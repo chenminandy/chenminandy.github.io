@@ -2,7 +2,24 @@
 <search>
   <entry>
     <title><![CDATA[Hello World]]></title>
-    <url>%2F2018%2F08%2F27%2Fhello-world%2F</url>
+    <url>%2F2018%2F09%2F15%2Fhello-world%2F</url>
     <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[first page]]></title>
+    <url>%2F2018%2F09%2F15%2Ffirst-page%2F</url>
+    <content type="text"><![CDATA[扯扯弄Hexo博客好久，一开始为了折腾theme，看了不下几十个theme的风格，但后面弄了一个半成品放到了github上，结果在我后面重整的时候，一个rm -rf直接干掉了~ 正所谓，不破不立，就网上选取了一篇非常详细的文章 WenBo丨星空灬。十分感谢，让我坚定地走出了第一步。Anyway，on the way~~~ 这篇正如我标题一样，first page，但作为一个码农，怎能去除Hello World的介绍，因此我也就保留了下来，也不让我这“first page”如此的孤单。 回归正题，这篇还是简单的记录下我搭建hexo的一些心路历程。一开始就在盲目的找自己喜欢的theme，甚至还去比较了哪些theme的github的clone次数，可能跟我离9月的那个星座比较近有关。后面比较来比较去还是决定采用NexT的风格，找到了一个文档比较详细的网址：theme-next.iissnan.com 再后面发现这里介绍第三方的集成缺比较详细的介绍，从而又找了上面那篇文章（WenBo丨星空灬）主要用下面几个第三方的插件工具： 热度：LeanCloud 评论：Disqus 第一篇文章也没啥好介绍的，最后再推荐两个之前同事的博客地址： 架构大牛，Zacard’s Notes 数据算法大牛，Blare’s blog]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
   </entry>
 </search>
