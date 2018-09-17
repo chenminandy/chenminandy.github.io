@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="git,git-reset," />
 
 
 
@@ -88,16 +88,31 @@
 
 
 
-<meta name="description" content="千万不要应付你的人生, 要尊重自己的谋生技能">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Bigmin&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/categories/Hexo/index.html">
+<meta name="description" content="Background前两天有同事跑过来说他在idea里的git reset方式，有的时候可以，有的时候不可以。不可以的时候经常会多出一些不是他自身希望reverse的代码。。。 Solutionidea 与 git 结合目前idea与git已经结合的非常好了，一些常用的操作既可以通过图形化界面来操作，也可以在terminal里敲git命令来实现。接下来要介绍的是idea的Version Contr">
+<meta name="keywords" content="git,git-reset">
+<meta property="og:type" content="article">
+<meta property="og:title" content="扯谈 git reset">
+<meta property="og:url" content="http://yoursite.com/2018/09/15/扯谈git-reset/index.html">
 <meta property="og:site_name" content="Bigmin&#39;s Blog">
-<meta property="og:description" content="千万不要应付你的人生, 要尊重自己的谋生技能">
+<meta property="og:description" content="Background前两天有同事跑过来说他在idea里的git reset方式，有的时候可以，有的时候不可以。不可以的时候经常会多出一些不是他自身希望reverse的代码。。。 Solutionidea 与 git 结合目前idea与git已经结合的非常好了，一些常用的操作既可以通过图形化界面来操作，也可以在terminal里敲git命令来实现。接下来要介绍的是idea的Version Contr">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/20180915/version-control.png">
+<meta property="og:image" content="http://yoursite.com/images/20180915/git-reset.png">
+<meta property="og:image" content="http://yoursite.com/images/20180916/worktree.png">
+<meta property="og:image" content="http://yoursite.com/images/20180916/git-soft.png">
+<meta property="og:image" content="http://yoursite.com/images/20180916/git-mixed.png">
+<meta property="og:image" content="http://yoursite.com/images/20180916/git-reset-example1.png">
+<meta property="og:image" content="http://yoursite.com/images/20180916/git-reset-example2.png">
+<meta property="og:image" content="http://yoursite.com/images/20180916/git-reset-nodiff.png">
+<meta property="og:image" content="http://yoursite.com/images/20180916/git-reset-changes.png">
+<meta property="og:image" content="http://yoursite.com/images/20180916/git-reset-example3.png">
+<meta property="og:image" content="http://yoursite.com/images/20180916/git-reset-changes.png">
+<meta property="og:image" content="http://yoursite.com/images/20180916/git-reset-nodiff.png">
+<meta property="og:updated_time" content="2018-09-17T03:48:29.803Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bigmin&#39;s Blog">
-<meta name="twitter:description" content="千万不要应付你的人生, 要尊重自己的谋生技能">
+<meta name="twitter:title" content="扯谈 git reset">
+<meta name="twitter:description" content="Background前两天有同事跑过来说他在idea里的git reset方式，有的时候可以，有的时候不可以。不可以的时候经常会多出一些不是他自身希望reverse的代码。。。 Solutionidea 与 git 结合目前idea与git已经结合的非常好了，一些常用的操作既可以通过图形化界面来操作，也可以在terminal里敲git命令来实现。接下来要介绍的是idea的Version Contr">
+<meta name="twitter:image" content="http://yoursite.com/images/20180915/version-control.png">
 
 
 
@@ -127,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/Hexo/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/15/扯谈git-reset/"/>
 
 
 
 
 
-  <title>分类: Hexo | Bigmin's Blog</title>
+  <title>扯谈 git reset | Bigmin's Blog</title>
   
 
 
@@ -152,7 +167,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -280,83 +295,254 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Hexo<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/15/扯谈git-reset/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bigmin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bigmin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/09/15/hello-world/" itemprop="url">
-              
-                <span itemprop="name">Hello World</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">扯谈 git reset</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-15T17:27:35+08:00"
-              content="2018-09-15" >
-          09-15
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-15T19:29:59+08:00">
+                2018-09-15
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Technology/" itemprop="url" rel="index">
+                    <span itemprop="name">Technology</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/15/扯谈git-reset/" class="leancloud_visitors" data-flag-title="扯谈 git reset">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+		<span>℃</span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/09/15/first-page/" itemprop="url">
-              
-                <span itemprop="name">first page</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-15T16:05:19+08:00"
-              content="2018-09-15" >
-          09-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
+        <h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>前两天有同事跑过来说他在idea里的git reset方式，有的时候可以，有的时候不可以。不可以的时候经常会多出一些不是他自身希望reverse的代码。。。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><h3 id="idea-与-git-结合"><a href="#idea-与-git-结合" class="headerlink" title="idea 与 git 结合"></a>idea 与 git 结合</h3><p>目前idea与git已经结合的非常好了，一些常用的操作既可以通过图形化界面来操作，也可以在terminal里敲git命令来实现。接下来要介绍的是idea的<strong>Version Control</strong>面板：<br><a id="more"></a></p>
+<p><img src="/images/20180915/version-control.png" alt="Version Control 面板"></p>
+<p>面板上其他tab不介绍了，主要介绍<strong>Log</strong>。这面板可以查看所有分支的commit log记录，不仅仅是本地的branch，远程的分支也可以。面板的上一栏主要是一些筛选和查询条件，经常用的就是<strong>Branch:</strong>和<strong>User:</strong>。在上面背景描述的同事就是没有选择Branch，直接找到了自己本身的commit id，然后就reset了，这样的话就把所有分支都reset到这个时间点了，所以就会有其他代码被reverse了。</p>
+<p>其实针对同事的需求，git有一种更加的方式，git revert。它可以回滚上一次或是指定commit id的代码，并且作为一次提交，生成新的commit id，这样能保证版本是递增的。而git reset其实是将commit id给回滚，将历史给抹灭了~ 而且如果是已经push到远程仓库的代码，需要有force push权限才能将仓库代码更新，但往往force push是被disable的。</p>
+<h3 id="git-reset-介绍"><a href="#git-reset-介绍" class="headerlink" title="git reset 介绍"></a>git reset 介绍</h3><p>在图形化操作git reset的时候，发现它提供了好几个选项，我们来着重介绍下各个选项的不同。</p>
+<p><img src="/images/20180915/git-reset.png" alt="git reset options"></p>
+<p>对于后面两个<strong>Hard</strong>、<strong>Keep</strong>，从他们后面的解释能明白，会直接revert到所指定的commit id那一点，<strong>Hard</strong>是所有的改动都会丢失，而<strong>Keep</strong>仅会保留本地的修改记录(local changes will be kept intact)。主要来关注下面两个选项</p>
+<ul>
+<li><strong>Soft</strong>：Files won‘t change, difference will be staged for commit.</li>
+<li><strong>Mixed</strong>: Default. Files won’t change, difference won’t be staged.</li>
+</ul>
+<p>很多人会发现操作了上述两个操作，对于操作的结果似乎是一样的，没有什么区别。但从描述上来看发现对stage是不一样的。那么stage又是一个什么呢？我们需要简单的整理下：</p>
+<p>git中的文件在本地仓库其实存在三种不同的位置，看下面的图：</p>
+<p><img src="/images/20180916/worktree.png" alt="git working tree/index/commit"> </p>
+<ul>
+<li><strong>工作区</strong>：可以称为working tree或是working copy。我们在IDea中修改或是添加一个文件，working tree的内容都发生了改变。</li>
+<li><strong>暂存区</strong>：可以称为index或是stage。而暂存区是连接工作区和分支的桥梁，当我们使用命令git-add，暂存区的内容就变了，此时暂存区和工作区是同步的。</li>
+<li><strong>分支</strong>：可以称为branch或是commit、HEAD。只有commit了，我们的代码才真正进入了git仓库。而且我们使用git-commit命令其实就是将暂存区的内容给提交到commit中。</li>
+</ul>
+<p>然后再了解<strong>参考文献1</strong>中的不同参数的效果，得出的结论是soft将commit给reset了，index和working tree还是同步的；</p>
+<p><img src="/images/20180916/git-soft.png" alt="git reset --soft"></p>
+<p>而mixed是将commit和index给reset了，commit和index保持一致，与working tree不一致。</p>
+<p><img src="/images/20180916/git-mixed.png" alt="git reset --mixed"></p>
+<p>可能看图还是不太理解具体的含义，我们分update的文件和new add的文件来阐述，利用了git diff命令来查看不同工作位置之间的区别。(git diff用途可以看<strong>参考文献2</strong>）</p>
+<ul>
+<li>update的文件：update的文件表示之前已经add到暂存区。此时如果git reset –mixed则会把暂存区的文件改动也会回退，保留了工作区的文件改动；而用了git reset –soft的话，会保留和暂存区和工作区的改动。但对于IDea的显示都是一样的, 在local changes中都是有改动的代码。但我们通过git diff 和git diff –cached是能看出他们的区别。如下例：<br>我们选择这个节点来reset：<br><img src="/images/20180916/git-reset-example1.png" alt="choose one commit to reset"><br>先选择soft来reset：<br><img src="/images/20180916/git-reset-example2.png" alt="choose sfot"><br>然后再terminal tab页使用git diff命令(查看working tree和index的区别)：<br><img src="/images/20180916/git-reset-nodiff.png" alt=" no diff"><br>在用git diff –cached命令查看(查看index file与commit的差别):<br><img src="/images/20180916/git-reset-changes.png" alt="changes"></li>
+</ul>
+<p>我们将代码恢复到reset前，再选择mixed来reset：<br><img src="/images/20180916/git-reset-example3.png" alt="choose mixed"><br>然后再terminal tab页使用git diff命令, 发现跟之前的不一样了，是下面的结果：<br><img src="/images/20180916/git-reset-changes.png" alt="changes"><br>用git diff –cached：<br><img src="/images/20180916/git-reset-nodiff.png" alt=" no diff"></p>
+<p>这刚好印证了<strong>参考文献1</strong>中的两幅图。</p>
+<ul>
+<li>new add的文件：此类文件更能反映出soft和mixed区别，直接在IDea的local changes就能发现。如果是选择soft的，则新加的文件还是被git add过，是已经“Add to VCS”；但如果选择mixed，会发现新加的文件没有被git add，是提示需要你重新去 “Add to VCS”。此类文件就不在做详细描述，具体操作一下便知。</li>
+</ul>
+<p>GIT虽然只是个简单的源码版本控制工具，但要真正理解，掌握它并不简单。授之以鱼不如授之以渔，且行且珍惜~~~</p>
+<h2 id="参考文献："><a href="#参考文献：" class="headerlink" title="参考文献："></a>参考文献：</h2><ol>
+<li><a href="https://blog.csdn.net/caomiao2006/article/details/40265027" target="_blank" rel="noopener">【转】git reset 之 soft mixed hard选项的区别</a></li>
+<li><a href="https://blog.csdn.net/w6028819321/article/details/19403533" target="_blank" rel="noopener">git diff 、git diff –cached 、git diff HEAD区别</a></li>
+</ol>
 
       
     </div>
+    
+    
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
 
+  
+</div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Bigmin 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
+          
+            <a href="/tags/git-reset/" rel="tag"><i class="fa fa-tag"></i> git-reset</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/15/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -364,6 +550,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -384,8 +584,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -486,6 +695,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Background"><span class="nav-number">1.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-number">2.</span> <span class="nav-text">Solution</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#idea-与-git-结合"><span class="nav-number">2.1.</span> <span class="nav-text">idea 与 git 结合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-reset-介绍"><span class="nav-number">2.2.</span> <span class="nav-text">git reset 介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献："><span class="nav-number">3.</span> <span class="nav-text">参考文献：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -618,6 +843,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -633,6 +862,18 @@
 
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/09/15/扯谈git-reset/';
+          this.page.identifier = '2018/09/15/扯谈git-reset/';
+          this.page.title = '扯谈 git reset';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://bigmin.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
@@ -1101,26 +1342,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
