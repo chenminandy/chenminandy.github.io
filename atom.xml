@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="https://bigmin.top/"/>
   <updated>2018-09-17T09:15:45.509Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>https://bigmin.top/</id>
   
   <author>
     <name>Bigmin</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>扯谈 git reset</title>
-    <link href="http://yoursite.com/2018/09/15/%E6%89%AF%E8%B0%88git-reset/"/>
-    <id>http://yoursite.com/2018/09/15/扯谈git-reset/</id>
+    <link href="https://bigmin.top/2018/09/15/%E6%89%AF%E8%B0%88git-reset/"/>
+    <id>https://bigmin.top/2018/09/15/扯谈git-reset/</id>
     <published>2018-09-15T11:29:59.000Z</published>
     <updated>2018-09-17T09:15:45.509Z</updated>
     
@@ -32,19 +32,19 @@
     
     </summary>
     
-      <category term="Source Control" scheme="http://yoursite.com/categories/Source-Control/"/>
+      <category term="Source Control" scheme="https://bigmin.top/categories/Source-Control/"/>
     
     
-      <category term="git" scheme="http://yoursite.com/tags/git/"/>
+      <category term="git" scheme="https://bigmin.top/tags/git/"/>
     
-      <category term="git-reset" scheme="http://yoursite.com/tags/git-reset/"/>
+      <category term="git-reset" scheme="https://bigmin.top/tags/git-reset/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2018/09/15/hello-world/"/>
-    <id>http://yoursite.com/2018/09/15/hello-world/</id>
+    <link href="https://bigmin.top/2018/09/15/hello-world/"/>
+    <id>https://bigmin.top/2018/09/15/hello-world/</id>
     <published>2018-09-15T09:27:35.859Z</published>
     <updated>2018-09-15T09:27:35.859Z</updated>
     
@@ -59,17 +59,17 @@
     
     </summary>
     
-      <category term="Hexo" scheme="http://yoursite.com/categories/Hexo/"/>
+      <category term="Hexo" scheme="https://bigmin.top/categories/Hexo/"/>
     
     
-      <category term="Hexo" scheme="http://yoursite.com/tags/Hexo/"/>
+      <category term="Hexo" scheme="https://bigmin.top/tags/Hexo/"/>
     
   </entry>
   
   <entry>
     <title>first page</title>
-    <link href="http://yoursite.com/2018/09/15/first-page/"/>
-    <id>http://yoursite.com/2018/09/15/first-page/</id>
+    <link href="https://bigmin.top/2018/09/15/first-page/"/>
+    <id>https://bigmin.top/2018/09/15/first-page/</id>
     <published>2018-09-15T08:05:19.000Z</published>
     <updated>2018-09-17T09:21:18.029Z</updated>
     
@@ -82,10 +82,10 @@
     
     </summary>
     
-      <category term="Hexo" scheme="http://yoursite.com/categories/Hexo/"/>
+      <category term="Hexo" scheme="https://bigmin.top/categories/Hexo/"/>
     
     
-      <category term="Hexo" scheme="http://yoursite.com/tags/Hexo/"/>
+      <category term="Hexo" scheme="https://bigmin.top/tags/Hexo/"/>
     
   </entry>
   
