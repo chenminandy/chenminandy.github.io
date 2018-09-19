@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo," />
+  <meta name="keywords" content="JVM,jstack,jmap," />
 
 
 
@@ -88,18 +88,29 @@
 
 
 
-<meta name="description" content="扯扯弄Hexo博客好久，一开始为了折腾theme，看了不下几十个theme的风格，但后面弄了一个半成品放到了github上，结果在我后面重整的时候，一个rm -rf直接干掉了~ 正所谓，不破不立，就网上选取了一篇非常详细的文章 WenBo丨星空灬。十分感谢，让我坚定地走出了第一步。Anyway，on the way~~~ 这篇正如我标题一样，first page，但作为一个码农，怎能去除Hello">
-<meta name="keywords" content="Hexo">
+<meta name="description" content="前言其实解决CPU 100%和内存使用率高的，在各大搜索引擎上，一搜就是一大把，所以这篇文章不能算什么技术原创，只能算是笔记，记录一下。年纪大了，经常会忘~~~ 解决CPU高我们经常在项目启动或是运行中，碰到CPU突然飙升很高或是100%，而且一直持续不降。遇到这种情况的时候，有一套标准的流程排查问题：  进入服务器，用top命令查看使用CPU最高的进程：  发现进程1088占用CPU最多，那就分">
+<meta name="keywords" content="JVM,jstack,jmap">
 <meta property="og:type" content="article">
-<meta property="og:title" content="first page">
-<meta property="og:url" content="https://bigmin.top/2018/09/15/first-page/index.html">
+<meta property="og:title" content="扯谈解决CPU高和内存占用高">
+<meta property="og:url" content="https://bigmin.top/2018/09/17/扯谈解决CPU高和内存占用高/index.html">
 <meta property="og:site_name" content="Bigmin&#39;s Blog">
-<meta property="og:description" content="扯扯弄Hexo博客好久，一开始为了折腾theme，看了不下几十个theme的风格，但后面弄了一个半成品放到了github上，结果在我后面重整的时候，一个rm -rf直接干掉了~ 正所谓，不破不立，就网上选取了一篇非常详细的文章 WenBo丨星空灬。十分感谢，让我坚定地走出了第一步。Anyway，on the way~~~ 这篇正如我标题一样，first page，但作为一个码农，怎能去除Hello">
+<meta property="og:description" content="前言其实解决CPU 100%和内存使用率高的，在各大搜索引擎上，一搜就是一大把，所以这篇文章不能算什么技术原创，只能算是笔记，记录一下。年纪大了，经常会忘~~~ 解决CPU高我们经常在项目启动或是运行中，碰到CPU突然飙升很高或是100%，而且一直持续不降。遇到这种情况的时候，有一套标准的流程排查问题：  进入服务器，用top命令查看使用CPU最高的进程：  发现进程1088占用CPU最多，那就分">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-17T09:21:18.029Z">
+<meta property="og:image" content="https://bigmin.top/images/20180918/top.png">
+<meta property="og:image" content="https://bigmin.top/images/20180918/jstack.png">
+<meta property="og:image" content="https://bigmin.top/images/20180918/highThread.png">
+<meta property="og:image" content="https://bigmin.top/images/20180918/dump.png">
+<meta property="og:image" content="https://bigmin.top/images/20180918/jmap_help.png">
+<meta property="og:image" content="https://bigmin.top/images/20180918/jmap_heap.png">
+<meta property="og:image" content="https://bigmin.top/images/20180918/leak_suspects.png">
+<meta property="og:image" content="https://bigmin.top/images/20180918/suspect_detail.png">
+<meta property="og:image" content="https://bigmin.top/images/20180918/jmap_histo.png">
+<meta property="og:image" content="https://bigmin.top/images/20180918/type_definition.png">
+<meta property="og:updated_time" content="2018-09-19T08:40:51.005Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="first page">
-<meta name="twitter:description" content="扯扯弄Hexo博客好久，一开始为了折腾theme，看了不下几十个theme的风格，但后面弄了一个半成品放到了github上，结果在我后面重整的时候，一个rm -rf直接干掉了~ 正所谓，不破不立，就网上选取了一篇非常详细的文章 WenBo丨星空灬。十分感谢，让我坚定地走出了第一步。Anyway，on the way~~~ 这篇正如我标题一样，first page，但作为一个码农，怎能去除Hello">
+<meta name="twitter:title" content="扯谈解决CPU高和内存占用高">
+<meta name="twitter:description" content="前言其实解决CPU 100%和内存使用率高的，在各大搜索引擎上，一搜就是一大把，所以这篇文章不能算什么技术原创，只能算是笔记，记录一下。年纪大了，经常会忘~~~ 解决CPU高我们经常在项目启动或是运行中，碰到CPU突然飙升很高或是100%，而且一直持续不降。遇到这种情况的时候，有一套标准的流程排查问题：  进入服务器，用top命令查看使用CPU最高的进程：  发现进程1088占用CPU最多，那就分">
+<meta name="twitter:image" content="https://bigmin.top/images/20180918/top.png">
 
 
 
@@ -129,13 +140,13 @@
 
 
 
-  <link rel="canonical" href="https://bigmin.top/2018/09/15/first-page/"/>
+  <link rel="canonical" href="https://bigmin.top/2018/09/17/扯谈解决CPU高和内存占用高/"/>
 
 
 
 
 
-  <title>first page | Bigmin's Blog</title>
+  <title>扯谈解决CPU高和内存占用高 | Bigmin's Blog</title>
   
 
 
@@ -296,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigmin.top/2018/09/15/first-page/">
+    <link itemprop="mainEntityOfPage" href="https://bigmin.top/2018/09/17/扯谈解决CPU高和内存占用高/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bigmin">
@@ -313,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">first page</h1>
+          <h1 class="post-title" itemprop="name headline">扯谈解决CPU高和内存占用高</h1>
         
 
         <div class="post-meta">
@@ -325,8 +336,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-15T16:05:19+08:00">
-                2018-09-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-17T19:37:48+08:00">
+                2018-09-17
               </time>
             
 
@@ -348,8 +359,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">Hexo</span>
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
                   </a>
                 </span>
 
@@ -365,7 +376,7 @@
 
           
           
-             <span id="/2018/09/15/first-page/" class="leancloud_visitors" data-flag-title="first page">
+             <span id="/2018/09/17/扯谈解决CPU高和内存占用高/" class="leancloud_visitors" data-flag-title="扯谈解决CPU高和内存占用高">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -397,20 +408,60 @@
       
 
       
-        <h2 id="扯扯"><a href="#扯扯" class="headerlink" title="扯扯"></a>扯扯</h2><p>弄Hexo博客好久，一开始为了折腾theme，看了不下几十个theme的风格，但后面弄了一个半成品放到了github上，结果在我后面重整的时候，一个rm -rf直接干掉了~ 正所谓，不破不立，就网上选取了一篇非常详细的文章 <a href="https://www.jianshu.com/p/9f0e90cc32c2" target="_blank" rel="noopener">WenBo丨星空灬</a>。十分感谢，让我坚定地走出了第一步。Anyway，on the way~~~</p>
-<p>这篇正如我标题一样，first page，但作为一个码农，怎能去除Hello World的介绍，因此我也就保留了下来，也不让我这<strong>“first page”</strong>如此的孤单。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>其实解决CPU 100%和内存使用率高的，在各大搜索引擎上，一搜就是一大把，所以这篇文章不能算什么技术原创，只能算是笔记，记录一下。年纪大了，经常会忘~~~</p>
+<h2 id="解决CPU高"><a href="#解决CPU高" class="headerlink" title="解决CPU高"></a>解决CPU高</h2><p>我们经常在项目启动或是运行中，碰到CPU突然飙升很高或是100%，而且一直持续不降。<br>遇到这种情况的时候，有一套标准的流程排查问题：</p>
+<ol>
+<li><p>进入服务器，用top命令查看使用CPU最高的进程：</p>
+<p><img src="/images/20180918/top.png" alt="top command"></p>
+<p>发现进程1088占用CPU最多，那就分析这个进程的信息</p>
+</li>
+<li><p>dump改进程的栈文件，用作后续分析</p>
+<p><code>jstack 1088 &gt; dump.txt</code></p>
+<p><img src="/images/20180918/jstack.png" alt="jstack command"></p>
 <a id="more"></a>
-<p>回归正题，这篇还是简单的记录下我搭建hexo的一些心路历程。一开始就在盲目的找自己喜欢的theme，甚至还去比较了哪些theme的github的clone次数，可能跟我离9月的那个星座比较近有关。后面比较来比较去还是决定采用NexT的风格，找到了一个文档比较详细的网址：<a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">theme-next.iissnan.com</a> 再后面发现这里介绍第三方的集成缺比较详细的介绍，从而又找了上面那篇文章（<a href="https://www.jianshu.com/p/9f0e90cc32c2" target="_blank" rel="noopener">WenBo丨星空灬</a>）主要用下面几个第三方的插件工具：</p>
+</li>
+<li><p>查看这个进程有哪些线程在运行，按CPU的使用率排序</p>
+<p> <code>top -p 1088 -H</code></p>
+<p> <img src="/images/20180918/highThread.png" alt="high thread ordered"></p>
+<p> 发现线程1748占用CPU最高</p>
+</li>
+<li><p>将线程id转换16进制<br> 因为dump出来的文件，有每个线程的栈信息，但都是以十六进制显示，故我们需要转换下</p>
+<p><code>printf &quot;%0x\n&quot; 1748</code><br>得到结果：6d4</p>
+</li>
+<li><p>查看dump文件</p>
+<p> <img src="/images/20180918/dump.png" alt="dump file"></p>
+<p>我们可以看出是哪块代码逻辑占用CPU比较多，然后分析代码即可</p>
+</li>
+</ol>
+<h2 id="解决内存占用高"><a href="#解决内存占用高" class="headerlink" title="解决内存占用高"></a>解决内存占用高</h2><p>jmap命令可以生成heap dump文件，可以用来分析JVM中的内存使用。 然而我们也经常会在系统运行中碰到OOM的问题，此类也可以通过jmap来分析，但并不实时。我们可以在java进程执行时添加-XX:+HeapDumpOnOutOfMemoryError，可以让JVM遇到OOM的时候自动dump出当时的快照，便于我们分析当时的场景。</p>
+<p>   jmap不仅能生成dump文件，还可以查询finalize执行队列、Java堆和永久代的详细信息，如当前使用率、当前使用的是哪种收集器等。</p>
+<p>   我们看jmap的帮助命令，介绍了jmap的usage和选项配置。</p>
+<p>   <img src="/images/20180918/jmap_help.png" alt="jmap --help"></p>
+<p>   一般用的最多就是<code>jmap [option] &lt;pid&gt; (to connect to running process)</code></p>
+<p>   我们还是用上面的top命令的图，top同样可以看出进程使用的内存占用率。还是1088这个进程。</p>
 <ul>
-<li><strong>热度</strong>：<a href="https://leancloud.cn/dashboard/applist.html#/apps" target="_blank" rel="noopener">LeanCloud</a></li>
-<li><strong>评论</strong>：<a href="https://disqus.com/by/disqus_Ao1JdMliC8/" target="_blank" rel="noopener">Disqus</a></li>
+<li><p>用heap选项查看整个堆的情况。它会打印heap的概要信息，GC使用的算法，heap的配置及使用情况，可以用此来判断内存目前的使用情况以及垃圾回收情况</p>
+<p>  <img src="/images/20180918/jmap_heap.png" alt="jmap -heap &lt;pid&gt;"></p>
+<p>  详细列出来了jvm设置的参数，NewSize、MaxNewSize、NewRatio、SurvivorRatio等等，还有新生代和老年代各个区的分布和使用情况。</p>
+</li>
+<li><p>用dump将内存文件dump出来，用内存分析软件MAT分析（MAT可以作为一个软件直接下载，mac也支持）</p>
+<p> <code>jmap -dump:live,format=b,file=dump.hprof 1088</code></p>
+<p> dump的文件有点大，传输需要点耐心~~</p>
+<p> 打开MAT分析dump.hprof文件，因为例子中的dump文件并不是内存异常情况下dump，所以分析的只是目前存活对象在使用内存的比例。<br> 我们直接打开<strong>Leak Suspects</strong> 的Report，它分析目前哪个类对象占比例大，最可疑。</p>
+<p> <img src="/images/20180918/leak_suspects.png" alt="leak suspects"></p>
+<p> 还可以从每个<strong>Promblem Suspect</strong>中的“Details”点进去，看这个class的引用关系，从而定位代码的可疑位置。</p>
+<p> <img src="/images/20180918/suspect_detail.png" alt="Problem Suspect Detail"> </p>
+</li>
+<li><p>还有一个histo选项，可以直接统计目前堆的对象，包括对象数、内存大小等等。jmap -histo:live 这个命令执行，JVM会先触发gc，然后再统计信息</p>
+<p><code>jmap -histo:live 1088 | more</code></p>
+<p><img src="/images/20180918/jmap_histo.png" alt="jmap -histo:live &lt;pid&gt;"></p>
+<p>也能分析出目前内存占用最多的是什么数据类型。<br>附：jmap输出中class name非自定义类的说明</p>
+<p><img src="/images/20180918/type_definition.png" alt="jmap 非自定义类的说明"></p>
+</li>
 </ul>
-<p>第一篇文章也没啥好介绍的，最后再推荐两个之前同事的博客地址：</p>
-<ul>
-<li>架构大牛，<a href="https://zacard.net/" target="_blank" rel="noopener">Zacard’s Notes</a></li>
-<li>算法大牛，<a href="http://www.iequa.com/" target="_blank" rel="noopener">Blair’s blog</a></li>
-<li>DBA大牛，<a href="http://idber.github.io/" target="_blank" rel="noopener">似水年华–沉浮</a></li>
-</ul>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
+<li><a href="https://www.cnblogs.com/myna/p/7573843.html" target="_blank" rel="noopener">JVM调优命令-jmap</a></li>
+</ol>
 
       
     </div>
@@ -462,7 +513,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+            <a href="/tags/JVM/" rel="tag"><i class="fa fa-tag"></i> JVM</a>
+          
+            <a href="/tags/jstack/" rel="tag"><i class="fa fa-tag"></i> jstack</a>
+          
+            <a href="/tags/jmap/" rel="tag"><i class="fa fa-tag"></i> jmap</a>
           
         </div>
       
@@ -475,15 +530,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/09/15/扯谈git-reset/" rel="next" title="扯谈 git reset">
+                <i class="fa fa-chevron-left"></i> 扯谈 git reset
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/15/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -666,7 +721,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#扯扯"><span class="nav-number">1.</span> <span class="nav-text">扯扯</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决CPU高"><span class="nav-number">2.</span> <span class="nav-text">解决CPU高</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决内存占用高"><span class="nav-number">3.</span> <span class="nav-text">解决内存占用高</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
           </div>
@@ -826,9 +881,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://bigmin.top/2018/09/15/first-page/';
-          this.page.identifier = '2018/09/15/first-page/';
-          this.page.title = 'first page';
+          this.page.url = 'https://bigmin.top/2018/09/17/扯谈解决CPU高和内存占用高/';
+          this.page.identifier = '2018/09/17/扯谈解决CPU高和内存占用高/';
+          this.page.title = '扯谈解决CPU高和内存占用高';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://bigmin.disqus.com/embed.js';

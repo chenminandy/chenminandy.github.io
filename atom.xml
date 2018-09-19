@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bigmin.top/"/>
-  <updated>2018-09-17T09:15:45.509Z</updated>
+  <updated>2018-09-19T08:40:51.005Z</updated>
   <id>https://bigmin.top/</id>
   
   <author>
@@ -15,6 +15,41 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>扯谈解决CPU高和内存占用高</title>
+    <link href="https://bigmin.top/2018/09/17/%E6%89%AF%E8%B0%88%E8%A7%A3%E5%86%B3CPU%E9%AB%98%E5%92%8C%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E9%AB%98/"/>
+    <id>https://bigmin.top/2018/09/17/扯谈解决CPU高和内存占用高/</id>
+    <published>2018-09-17T11:37:48.000Z</published>
+    <updated>2018-09-19T08:40:51.005Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>其实解决CPU 100%和内存使用率高的，在各大搜索引擎上，一搜就是一大把，所以这篇文章不能算什么技术原创，只能算是笔记，记录一下。年纪大了，经常会忘~~~</p><h2 id="解决CPU高"><a href="#解决CPU高" class="headerlink" title="解决CPU高"></a>解决CPU高</h2><p>我们经常在项目启动或是运行中，碰到CPU突然飙升很高或是100%，而且一直持续不降。<br>遇到这种情况的时候，有一套标准的流程排查问题：</p><ol><li><p>进入服务器，用top命令查看使用CPU最高的进程：</p><p><img src="/images/20180918/top.png" alt="top command"></p><p>发现进程1088占用CPU最多，那就分析这个进程的信息</p></li><li><p>dump改进程的栈文件，用作后续分析</p><p><code>jstack 1088 &gt; dump.txt</code></p><p><img src="/images/20180918/jstack.png" alt="jstack command"></p><a id="more"></a></li><li><p>查看这个进程有哪些线程在运行，按CPU的使用率排序</p><p> <code>top -p 1088 -H</code></p><p> <img src="/images/20180918/highThread.png" alt="high thread ordered"></p><p> 发现线程1748占用CPU最高</p></li><li><p>将线程id转换16进制<br> 因为dump出来的文件，有每个线程的栈信息，但都是以十六进制显示，故我们需要转换下</p><p><code>printf &quot;%0x\n&quot; 1748</code><br>得到结果：6d4</p></li><li><p>查看dump文件</p><p> <img src="/images/20180918/dump.png" alt="dump file"></p><p>我们可以看出是哪块代码逻辑占用CPU比较多，然后分析代码即可</p></li></ol><h2 id="解决内存占用高"><a href="#解决内存占用高" class="headerlink" title="解决内存占用高"></a>解决内存占用高</h2><p>jmap命令可以生成heap dump文件，可以用来分析JVM中的内存使用。 然而我们也经常会在系统运行中碰到OOM的问题，此类也可以通过jmap来分析，但并不实时。我们可以在java进程执行时添加-XX:+HeapDumpOnOutOfMemoryError，可以让JVM遇到OOM的时候自动dump出当时的快照，便于我们分析当时的场景。</p><p>   jmap不仅能生成dump文件，还可以查询finalize执行队列、Java堆和永久代的详细信息，如当前使用率、当前使用的是哪种收集器等。</p><p>   我们看jmap的帮助命令，介绍了jmap的usage和选项配置。</p><p>   <img src="/images/20180918/jmap_help.png" alt="jmap --help"></p><p>   一般用的最多就是<code>jmap [option] &lt;pid&gt; (to connect to running process)</code></p><p>   我们还是用上面的top命令的图，top同样可以看出进程使用的内存占用率。还是1088这个进程。</p><ul><li><p>用heap选项查看整个堆的情况。它会打印heap的概要信息，GC使用的算法，heap的配置及使用情况，可以用此来判断内存目前的使用情况以及垃圾回收情况</p><p>  <img src="/images/20180918/jmap_heap.png" alt="jmap -heap &lt;pid&gt;"></p><p>  详细列出来了jvm设置的参数，NewSize、MaxNewSize、NewRatio、SurvivorRatio等等，还有新生代和老年代各个区的分布和使用情况。</p></li><li><p>用dump将内存文件dump出来，用内存分析软件MAT分析（MAT可以作为一个软件直接下载，mac也支持）</p><p> <code>jmap -dump:live,format=b,file=dump.hprof 1088</code></p><p> dump的文件有点大，传输需要点耐心~~</p><p> 打开MAT分析dump.hprof文件，因为例子中的dump文件并不是内存异常情况下dump，所以分析的只是目前存活对象在使用内存的比例。<br> 我们直接打开<strong>Leak Suspects</strong> 的Report，它分析目前哪个类对象占比例大，最可疑。</p><p> <img src="/images/20180918/leak_suspects.png" alt="leak suspects"></p><p> 还可以从每个<strong>Promblem Suspect</strong>中的“Details”点进去，看这个class的引用关系，从而定位代码的可疑位置。</p><p> <img src="/images/20180918/suspect_detail.png" alt="Problem Suspect Detail"> </p></li><li><p>还有一个histo选项，可以直接统计目前堆的对象，包括对象数、内存大小等等。jmap -histo:live 这个命令执行，JVM会先触发gc，然后再统计信息</p><p><code>jmap -histo:live 1088 | more</code></p><p><img src="/images/20180918/jmap_histo.png" alt="jmap -histo:live &lt;pid&gt;"></p><p>也能分析出目前内存占用最多的是什么数据类型。<br>附：jmap输出中class name非自定义类的说明</p><p><img src="/images/20180918/type_definition.png" alt="jmap 非自定义类的说明"></p></li></ul><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol><li><a href="https://www.cnblogs.com/myna/p/7573843.html" target="_blank" rel="noopener">JVM调优命令-jmap</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;其实解决CPU 100%和内存使用率高的，在各大搜索引擎上，一搜就是一大把，所以这篇文章不能算什么技术原创，只能算是笔记，记录一下。年纪大了，经常会忘~~~&lt;/p&gt;
+&lt;h2 id=&quot;解决CPU高&quot;&gt;&lt;a href=&quot;#解决CPU高&quot; class=&quot;headerlink&quot; title=&quot;解决CPU高&quot;&gt;&lt;/a&gt;解决CPU高&lt;/h2&gt;&lt;p&gt;我们经常在项目启动或是运行中，碰到CPU突然飙升很高或是100%，而且一直持续不降。&lt;br&gt;遇到这种情况的时候，有一套标准的流程排查问题：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;进入服务器，用top命令查看使用CPU最高的进程：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/20180918/top.png&quot; alt=&quot;top command&quot;&gt;&lt;/p&gt;
+&lt;p&gt;发现进程1088占用CPU最多，那就分析这个进程的信息&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;dump改进程的栈文件，用作后续分析&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;jstack 1088 &amp;gt; dump.txt&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/20180918/jstack.png&quot; alt=&quot;jstack command&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="JAVA" scheme="https://bigmin.top/categories/JAVA/"/>
+    
+    
+      <category term="JVM" scheme="https://bigmin.top/tags/JVM/"/>
+    
+      <category term="jstack" scheme="https://bigmin.top/tags/jstack/"/>
+    
+      <category term="jmap" scheme="https://bigmin.top/tags/jmap/"/>
+    
+  </entry>
   
   <entry>
     <title>扯谈 git reset</title>
