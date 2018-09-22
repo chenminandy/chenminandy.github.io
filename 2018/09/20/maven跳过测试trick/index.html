@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="maven," />
 
 
 
@@ -88,16 +88,21 @@
 
 
 
-<meta name="description" content="千万不要应付你的人生, 要尊重自己的谋生技能">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Bigmin&#39;s Blog">
-<meta property="og:url" content="https://bigmin.top/tags/git-reset/index.html">
+<meta name="description" content="前言我们在本地或是开发环境，用maven打包时，想要跳过测试过程，经常会用到-DskipTests=true或是-Dmaven.test.skip=true跳过测试。但两者之间其实是有区别的，虽然达到的目的是一样的。 背景知识maven有三大生命周期，clean、default和site。这也就解释了我们在执行命令的时候是组合的，一般是mvn clean install这样的，clean和inst">
+<meta name="keywords" content="maven">
+<meta property="og:type" content="article">
+<meta property="og:title" content="maven跳过测试trick">
+<meta property="og:url" content="https://bigmin.top/2018/09/20/maven跳过测试trick/index.html">
 <meta property="og:site_name" content="Bigmin&#39;s Blog">
-<meta property="og:description" content="千万不要应付你的人生, 要尊重自己的谋生技能">
+<meta property="og:description" content="前言我们在本地或是开发环境，用maven打包时，想要跳过测试过程，经常会用到-DskipTests=true或是-Dmaven.test.skip=true跳过测试。但两者之间其实是有区别的，虽然达到的目的是一样的。 背景知识maven有三大生命周期，clean、default和site。这也就解释了我们在执行命令的时候是组合的，一般是mvn clean install这样的，clean和inst">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://bigmin.top/images/20180921/skipTests.png">
+<meta property="og:image" content="https://bigmin.top/images/20180921/maven_test_skip.png">
+<meta property="og:updated_time" content="2018-09-22T01:39:15.405Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bigmin&#39;s Blog">
-<meta name="twitter:description" content="千万不要应付你的人生, 要尊重自己的谋生技能">
+<meta name="twitter:title" content="maven跳过测试trick">
+<meta name="twitter:description" content="前言我们在本地或是开发环境，用maven打包时，想要跳过测试过程，经常会用到-DskipTests=true或是-Dmaven.test.skip=true跳过测试。但两者之间其实是有区别的，虽然达到的目的是一样的。 背景知识maven有三大生命周期，clean、default和site。这也就解释了我们在执行命令的时候是组合的，一般是mvn clean install这样的，clean和inst">
+<meta name="twitter:image" content="https://bigmin.top/images/20180921/skipTests.png">
 
 
 
@@ -127,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="https://bigmin.top/tags/git-reset/"/>
+  <link rel="canonical" href="https://bigmin.top/2018/09/20/maven跳过测试trick/"/>
 
 
 
 
 
-  <title>标签: git-reset | Bigmin's Blog</title>
+  <title>maven跳过测试trick | Bigmin's Blog</title>
   
 
 
@@ -152,7 +157,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -280,54 +285,244 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>git-reset<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigmin.top/2018/09/20/maven跳过测试trick/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bigmin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bigmin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/09/15/扯谈git-reset/" itemprop="url">
-              
-                <span itemprop="name">扯谈 git reset</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">maven跳过测试trick</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-15T19:29:59+08:00"
-              content="2018-09-15" >
-          09-15
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-20T19:23:39+08:00">
+                2018-09-20
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工程化与工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工程化与工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/20/maven跳过测试trick/" class="leancloud_visitors" data-flag-title="maven跳过测试trick">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+		<span>℃</span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我们在本地或是开发环境，用maven打包时，想要跳过测试过程，经常会用到-DskipTests=true或是-Dmaven.test.skip=true跳过测试。但两者之间其实是有区别的，虽然达到的目的是一样的。</p>
+<h2 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h2><p>maven有三大生命周期，clean、default和site。这也就解释了我们在执行命令的时候是组合的，一般是<code>mvn clean install</code>这样的，clean和install分别是clean和default的一个阶段（phase）。</p>
+<h3 id="clean生命周期：清理项目，包含三个phase。"><a href="#clean生命周期：清理项目，包含三个phase。" class="headerlink" title="clean生命周期：清理项目，包含三个phase。"></a>clean生命周期：清理项目，包含三个phase。</h3><ol>
+<li>pre-clean：执行清理前需要完成的工作</li>
+<li>clean：清理上一次构建生成的文件</li>
+<li>post-clean：执行清理后需要完成的工作</li>
+</ol>
+<h3 id="default生命周期：构建项目，重要的phase如下："><a href="#default生命周期：构建项目，重要的phase如下：" class="headerlink" title="default生命周期：构建项目，重要的phase如下："></a>default生命周期：构建项目，重要的phase如下：</h3><ol>
+<li>validate：验证工程是否正确，所有需要的资源是否可用。</li>
+<li>compile：编译项目的源代码。</li>
+<li>test：使用合适的单元测试框架来测试已编译的源代码。这些测试不需要已打包和布署。</li>
+<li>package：把已编译的代码打包成可发布的格式，比如jar。</li>
+<li>integration-test：如有需要，将包处理和发布到一个能够进行集成测试的环境。</li>
+<li>verify：运行所有检查，验证包是否有效且达到质量标准。</li>
+<li>install：把包安装到maven本地仓库，可以被其他工程作为依赖来使用。</li>
+<li>deploy：在集成或者发布环境下执行，将最终版本的包拷贝到远程的repository，使得其他的开发者或者工程可以共享。<a id="more"></a>
+</li>
+</ol>
+<h3 id="site生命周期：建立和发布项目站点，phase如下："><a href="#site生命周期：建立和发布项目站点，phase如下：" class="headerlink" title="site生命周期：建立和发布项目站点，phase如下："></a>site生命周期：建立和发布项目站点，phase如下：</h3><ol>
+<li>pre-site：生成项目站点之前需要完成的工作</li>
+<li>site：生成项目站点文档</li>
+<li>post-site：生成项目站点之后需要完成的工作</li>
+<li>site-deploy：将项目站点发布到服务器</li>
+</ol>
+<h2 id="DskipTests"><a href="#DskipTests" class="headerlink" title="-DskipTests"></a>-DskipTests</h2><p>用命令<code>mvn clean install -DskipTests=true</code> 实际上只是在test这个phase起了作用。再说的通俗一点，就是跳过了单元测试的执行阶段~~ 但测试代码其实跟source code是一样的，也需要编译，会有个test-compile。因此测试代码如果编译失败的话，那意味着这个命令执行失败。<br>可以从下图看出：</p>
+<p><img src="/images/20180921/skipTests.png" alt="install -DskipTests=true"></p>
+<h2 id="Dmaven-test-skip"><a href="#Dmaven-test-skip" class="headerlink" title="-Dmaven.test.skip"></a>-Dmaven.test.skip</h2><p>既然上面已经讲得那么露骨了，用命令<code>mvn clean install -Dmaven.test.skip=true</code>是可以成功避开testCompile，并且跳过测试阶段。见下图：</p>
+<p><img src="/images/20180921/maven_test_skip.png" alt="install -Dmaven.test.skip=true"></p>
+<p>可以看出compile:testCompile和test都被跳过了~~</p>
+<h2 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h2><p>maven执行测试用例是用maven-surefire-plugin插件来执行的，skipTests是插件的一个属性，有兴趣可以研究下这个插件的具体参数和goal，就会对test有比较深刻的认识。</p>
 
       
     </div>
+    
+    
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
 
+  
+</div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Bigmin 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/maven/" rel="tag"><i class="fa fa-tag"></i> maven</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/17/扯谈解决CPU高和内存占用高/" rel="next" title="扯谈解决CPU高和内存占用高">
+                <i class="fa fa-chevron-left"></i> 扯谈解决CPU高和内存占用高
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -335,6 +530,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -355,8 +564,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -457,6 +675,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景知识"><span class="nav-number">2.</span> <span class="nav-text">背景知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#clean生命周期：清理项目，包含三个phase。"><span class="nav-number">2.1.</span> <span class="nav-text">clean生命周期：清理项目，包含三个phase。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#default生命周期：构建项目，重要的phase如下："><span class="nav-number">2.2.</span> <span class="nav-text">default生命周期：构建项目，重要的phase如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#site生命周期：建立和发布项目站点，phase如下："><span class="nav-number">2.3.</span> <span class="nav-text">site生命周期：建立和发布项目站点，phase如下：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DskipTests"><span class="nav-number">3.</span> <span class="nav-text">-DskipTests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dmaven-test-skip"><span class="nav-number">4.</span> <span class="nav-text">-Dmaven.test.skip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后话"><span class="nav-number">5.</span> <span class="nav-text">后话</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -589,6 +823,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -604,6 +842,18 @@
 
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://bigmin.top/2018/09/20/maven跳过测试trick/';
+          this.page.identifier = '2018/09/20/maven跳过测试trick/';
+          this.page.title = 'maven跳过测试trick';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://bigmin.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
@@ -1072,26 +1322,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

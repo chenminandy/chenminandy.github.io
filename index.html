@@ -295,6 +295,182 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigmin.top/2018/09/20/maven跳过测试trick/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bigmin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bigmin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/20/maven跳过测试trick/" itemprop="url">maven跳过测试trick</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-20T19:23:39+08:00">
+                2018-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工程化与工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工程化与工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/20/maven跳过测试trick/" class="leancloud_visitors" data-flag-title="maven跳过测试trick">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+		<span>℃</span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我们在本地或是开发环境，用maven打包时，想要跳过测试过程，经常会用到-DskipTests=true或是-Dmaven.test.skip=true跳过测试。但两者之间其实是有区别的，虽然达到的目的是一样的。</p>
+<h2 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h2><p>maven有三大生命周期，clean、default和site。这也就解释了我们在执行命令的时候是组合的，一般是<code>mvn clean install</code>这样的，clean和install分别是clean和default的一个阶段（phase）。</p>
+<h3 id="clean生命周期：清理项目，包含三个phase。"><a href="#clean生命周期：清理项目，包含三个phase。" class="headerlink" title="clean生命周期：清理项目，包含三个phase。"></a>clean生命周期：清理项目，包含三个phase。</h3><ol>
+<li>pre-clean：执行清理前需要完成的工作</li>
+<li>clean：清理上一次构建生成的文件</li>
+<li>post-clean：执行清理后需要完成的工作</li>
+</ol>
+<h3 id="default生命周期：构建项目，重要的phase如下："><a href="#default生命周期：构建项目，重要的phase如下：" class="headerlink" title="default生命周期：构建项目，重要的phase如下："></a>default生命周期：构建项目，重要的phase如下：</h3><ol>
+<li>validate：验证工程是否正确，所有需要的资源是否可用。</li>
+<li>compile：编译项目的源代码。</li>
+<li>test：使用合适的单元测试框架来测试已编译的源代码。这些测试不需要已打包和布署。</li>
+<li>package：把已编译的代码打包成可发布的格式，比如jar。</li>
+<li>integration-test：如有需要，将包处理和发布到一个能够进行集成测试的环境。</li>
+<li>verify：运行所有检查，验证包是否有效且达到质量标准。</li>
+<li>install：把包安装到maven本地仓库，可以被其他工程作为依赖来使用。</li>
+<li>deploy：在集成或者发布环境下执行，将最终版本的包拷贝到远程的repository，使得其他的开发者或者工程可以共享。
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/20/maven跳过测试trick/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+<div>
+  
+</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://bigmin.top/2018/09/17/扯谈解决CPU高和内存占用高/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -519,8 +695,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Source-Control/" itemprop="url" rel="index">
-                    <span itemprop="name">Source Control</span>
+                  <a href="/categories/工程化与工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工程化与工具</span>
                   </a>
                 </span>
 
@@ -990,7 +1166,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1012,7 +1188,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
