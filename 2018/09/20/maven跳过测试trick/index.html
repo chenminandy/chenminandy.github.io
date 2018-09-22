@@ -98,7 +98,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://bigmin.top/images/20180921/skipTests.png">
 <meta property="og:image" content="https://bigmin.top/images/20180921/maven_test_skip.png">
-<meta property="og:updated_time" content="2018-09-22T01:39:15.405Z">
+<meta property="og:updated_time" content="2018-09-22T06:20:33.272Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="maven跳过测试trick">
 <meta name="twitter:description" content="前言我们在本地或是开发环境，用maven打包时，想要跳过测试过程，经常会用到-DskipTests=true或是-Dmaven.test.skip=true跳过测试。但两者之间其实是有区别的，虽然达到的目的是一样的。 背景知识maven有三大生命周期，clean、default和site。这也就解释了我们在执行命令的时候是组合的，一般是mvn clean install这样的，clean和inst">
@@ -407,6 +407,7 @@
 <li>clean：清理上一次构建生成的文件</li>
 <li>post-clean：执行清理后需要完成的工作</li>
 </ol>
+<a id="more"></a>
 <h3 id="default生命周期：构建项目，重要的phase如下："><a href="#default生命周期：构建项目，重要的phase如下：" class="headerlink" title="default生命周期：构建项目，重要的phase如下："></a>default生命周期：构建项目，重要的phase如下：</h3><ol>
 <li>validate：验证工程是否正确，所有需要的资源是否可用。</li>
 <li>compile：编译项目的源代码。</li>
@@ -415,8 +416,7 @@
 <li>integration-test：如有需要，将包处理和发布到一个能够进行集成测试的环境。</li>
 <li>verify：运行所有检查，验证包是否有效且达到质量标准。</li>
 <li>install：把包安装到maven本地仓库，可以被其他工程作为依赖来使用。</li>
-<li>deploy：在集成或者发布环境下执行，将最终版本的包拷贝到远程的repository，使得其他的开发者或者工程可以共享。<a id="more"></a>
-</li>
+<li>deploy：在集成或者发布环境下执行，将最终版本的包拷贝到远程的repository，使得其他的开发者或者工程可以共享。</li>
 </ol>
 <h3 id="site生命周期：建立和发布项目站点，phase如下："><a href="#site生命周期：建立和发布项目站点，phase如下：" class="headerlink" title="site生命周期：建立和发布项目站点，phase如下："></a>site生命周期：建立和发布项目站点，phase如下：</h3><ol>
 <li>pre-site：生成项目站点之前需要完成的工作</li>
