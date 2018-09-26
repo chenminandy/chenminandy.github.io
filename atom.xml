@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bigmin.top/"/>
-  <updated>2018-09-22T06:20:33.272Z</updated>
+  <updated>2018-09-26T03:33:07.539Z</updated>
   <id>https://bigmin.top/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>扯扯git-flow</title>
+    <link href="https://bigmin.top/2018/09/22/%E6%89%AF%E6%89%AFgitflow/"/>
+    <id>https://bigmin.top/2018/09/22/扯扯gitflow/</id>
+    <published>2018-09-22T06:22:48.000Z</published>
+    <updated>2018-09-26T03:33:07.539Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>经历了一次前无古人，不知还有没有来者的上线，真是重新刷了我的对上线的认识。后面有机会可以单独写写这上线的历程。但由于中间经历了一次上线，导致这篇日志发布的时间拖了好久，争取这两天弄完~~<br>本人对于企业级开发的版本控制觉得还是集中式的管理比较好~ 大家是一个团体，一起维护一个project，所以个人觉得对于fork工作流不感冒，觉得对于开源的项目是一个很好的推荐方式，因为后面是有可能衍变成两个并行的分支。但对于企业的应用开发，这几乎是不可能的，最终还是要统一成一个版本的。</p><h2 id="git-flow工作流"><a href="#git-flow工作流" class="headerlink" title="git-flow工作流"></a>git-flow工作流</h2><p>gitflow工作流实际上是feature工作流的升级版，定义了一个严格的分支模型，规定了在开发流程中所涉及的分支。参考文献1介绍的非常详细，而且git-flow的分支模型也正是从这篇文章中总结得到了，算是git-flow的鼻祖文章。</p><p>下面引用了一版与鼻祖类似的gitflow分支模型图：</p><p><img src="/images/20180925/gitflow.png" alt="git flow model"><br><a id="more"></a></p><p><strong>Develop&amp;Master</strong>：都是protected的分支，不允许开发人员直接push，稳定的长久的分支。从项目的创建开始，develop是由master衍生出来之后，就永远没有交集，是两条永远不会相交的平行线。不推荐master作为发布分支，他只是记录每次上线发布的里程碑，所有在master上commit的都应打tag标记。</p><p><strong>Feature</strong>：功能测试分支，只能从develop上拉，在提测，测试功能稳定后就可以合回develop供接下来的功能分支拉取做基准。</p><p><strong>Release</strong>：发布部署分支，只能从develop上拉，一般是feature分支测试稳定后，合回develop，再从develop拉出release分支。该分支一般用于回归测试，做一些小的bug修复，并用此分支上线。上线完之后要合回master和develop分支，并基于此时的代码打个tag。</p><p><strong>Hotfix</strong>：线上修复分支，只能从master上拉。用于解决线上问题。解决完之后，和<strong>release</strong>分支一样，合回master和develop分支，并打个tag。<br>注：之前不用master分支发布还有一个原因就是，目前我们开发的质量不高，经常在生产环境，测试在做回归测试，由于这个那个原因，会发现一些bug，但如果这个时候用master发布的话，用git-flow的话，意味着我们需要不断的拉hotfix分支去解决这些问题，无端地增加了很多开发成本。</p><p>除develop和master是长久存在的，其他的分支都是有自己的生命周期，不是一直存在的。某个分支在完成了它的使命，就应该被销毁了~ 尽管git的分支仅仅就是一个指针的指向，但对于开发人员，发现一个project有几百个分支残留着，就很操蛋~~~</p><h2 id="git-flow使用"><a href="#git-flow使用" class="headerlink" title="git-flow使用"></a>git-flow使用</h2><p>为了配合git-flow工作流的开展，其实早有一套现成的git-flow command可供使用。在mac中，通过<code>brew install git-flow</code>就可以安装。Github上也有源码提供：<a href="https://github.com/nvie/gitflow" target="_blank" rel="noopener">Here</a>.</p><p>下面有一些常用命令：</p><ul><li>初始化: git flow init</li><li>开始新Feature: git flow feature start MYFEATURE</li><li>Publish一个Feature(也就是push到远程): git flow feature publish MYFEATURE</li><li>获取Publish的Feature: git flow feature pull origin MYFEATURE</li><li>完成一个Feature: git flow feature finish MYFEATURE</li><li>开始一个Release: git flow release start RELEASE [BASE]</li><li>Publish一个Release: git flow release publish RELEASE</li><li>发布Release: git flow release finish RELEASE</li><li>别忘了git push –tags</li><li>开始一个Hotfix: git flow hotfix start VERSION [BASENAME]</li><li>发布一个Hotfix: git flow hotfix finish VERSION</li></ul><p>但对于我们作为一个图形化工具的深度使用者，其实有一些版本控制的工具也已经集成了git-flow，我们只需鼠标点击即可完成git-flow工作流。推荐<strong>SourceTree</strong> 版本控制工具。</p><p>工具list：</p><ul><li>IDEA git-flow plugin</li><li><a href="https://www.sourcetreeapp.com/" target="_blank" rel="noopener">SourceTree</a>（Mac &amp; Windows）</li><li><a href="https://tortoisegit.org/" target="_blank" rel="noopener">Tortoise Git</a> （Windows）</li></ul><h2 id="Conflict"><a href="#Conflict" class="headerlink" title="Conflict"></a>Conflict</h2><p>别奢望任何一种工作流能解决代码冲突问题。自从诞生了版本控制，这版本冲突就是一个相生相随的产物。只是用了合适的工作流方式，能减少冲突出现的次数。</p><p>那么遇到了冲突怎么办，那就一个字，<strong><em>干</em></strong>！！！解决它，解决它的次数多了，也就不是什么问题了。</p><h2 id="分支命名规范"><a href="#分支命名规范" class="headerlink" title="分支命名规范"></a>分支命名规范</h2><p>对于企业开发来说，有个良好的分支命名规范会让我们在工作交流过程中，能够轻易地知晓是在哪个功能模块，哪个阶段的代码。而且同一的分支命名规范，也能利于后续运维的自动化部署，集成测试部署。</p><p><strong><em>注：利用git-flow拉取的feature、release和hotfix分支，自然而然会在对应的feature、release和hotfix目录下</em></strong></p><p>之前公司有过一个分支的命名规范，仅供参考：<br><strong>Name</strong>：${1}_${2}_${3}_${4}_${5}<br>${1}: 分支类型，指feature、release和hotfix。<br>${2}：后端还是前端分支，指frontend/backend。<br>${3}：工程名称，一般就是git工程的名称。<br>${4}：本次功能迭代的描述<br>${5}：有意义的时间，譬如，release分支的${5}可以用本次迭代上线的时间代替。</p><p>本次扯淡结束~ 参考文献中有两篇文章，有兴趣可以看看，一篇是说gitflow有害，一篇是反驳的。个人觉得适合自己的才是最好的，而且有一个原则，在保证良好的版本控制下，尽量让使用者简单方便的操作~ 如果是为了流程再去设计流程，那就失去了它本身的意义了~</p><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol><li><a href="https://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">A successful Git branching model</a></li><li><a href="http://insights.thoughtworkers.org/gitflow-consider-harmful/" target="_blank" rel="noopener">Gitflow有害论</a></li><li><a href="https://ruby-china.org/topics/29263" target="_blank" rel="noopener">GIT 之我见 - 反驳 TW 洞见《GITFLOW 有害论》</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;经历了一次前无古人，不知还有没有来者的上线，真是重新刷了我的对上线的认识。后面有机会可以单独写写这上线的历程。但由于中间经历了一次上线，导致这篇日志发布的时间拖了好久，争取这两天弄完~~&lt;br&gt;本人对于企业级开发的版本控制觉得还是集中式的管理比较好~ 大家是一个团体，一起维护一个project，所以个人觉得对于fork工作流不感冒，觉得对于开源的项目是一个很好的推荐方式，因为后面是有可能衍变成两个并行的分支。但对于企业的应用开发，这几乎是不可能的，最终还是要统一成一个版本的。&lt;/p&gt;
+&lt;h2 id=&quot;git-flow工作流&quot;&gt;&lt;a href=&quot;#git-flow工作流&quot; class=&quot;headerlink&quot; title=&quot;git-flow工作流&quot;&gt;&lt;/a&gt;git-flow工作流&lt;/h2&gt;&lt;p&gt;gitflow工作流实际上是feature工作流的升级版，定义了一个严格的分支模型，规定了在开发流程中所涉及的分支。参考文献1介绍的非常详细，而且git-flow的分支模型也正是从这篇文章中总结得到了，算是git-flow的鼻祖文章。&lt;/p&gt;
+&lt;p&gt;下面引用了一版与鼻祖类似的gitflow分支模型图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/20180925/gitflow.png&quot; alt=&quot;git flow model&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="工程化与工具" scheme="https://bigmin.top/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96%E4%B8%8E%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="git" scheme="https://bigmin.top/tags/git/"/>
+    
+      <category term="git-flow" scheme="https://bigmin.top/tags/git-flow/"/>
+    
+  </entry>
   
   <entry>
     <title>maven跳过测试trick</title>
